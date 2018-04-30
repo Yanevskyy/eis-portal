@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/deploy/deploy.iml" filepath="$PROJECT_DIR$/deploy/deploy.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/domain.iml" filepath="$PROJECT_DIR$/domain/domain.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/dto/dto.iml" filepath="$PROJECT_DIR$/domain/dto/dto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eis-portal.iml" filepath="$PROJECT_DIR$/eis-portal.iml" />
+      <module fileurl="file://$PROJECT_DIR$/domain/entity/entity.iml" filepath="$PROJECT_DIR$/domain/entity/entity.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/service.iml" filepath="$PROJECT_DIR$/service/service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/service-api/service-api.iml" filepath="$PROJECT_DIR$/service/service-api/service-api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/service/service-impl/service-impl.iml" filepath="$PROJECT_DIR$/service/service-impl/service-impl.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-app/web-app.iml" filepath="$PROJECT_DIR$/web-app/web-app.iml" />
+    </modules>
+  </component>
+</project>
