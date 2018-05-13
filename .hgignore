@@ -1,5 +1,8 @@
 .idea
+
 target
+.iml
+.DS_Store
+classes
 syntax: glob
 .git/*
-*.iml

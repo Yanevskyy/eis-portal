@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+    <title>Locations</title>
+</h:head>
+
+<h:body>
+    <p:dialog id="locDialog" header="Select location(s)" widgetVar="locationDialog"  modal="true" closable="false"
+              resizable="false" width="30%" showEffect="slide" hideEffect="slide" position="top">
+        <h:form>
+            <div class="ui-g">
+                <div class="ui-g-4">
+                    <h:outputLabel for="locations" value="Locations: "/>
+                </div>
+                <div class="ui-g-4">
+                    <p:selectCheckboxMenu id="locations"  label="Locations" multiple="true"
+                                      filter="false" scrollHeight="50" panelStyle="width: 20%;">
+                        <f:selectItem itemLabel="Odessa" itemValue="odessa"/>
+                        <f:selectItem itemLabel="Minsk" itemValue="minsk"/>
+                        <f:selectItem itemLabel="San Francisco" itemValue="sfrancisco"/>
+                    </p:selectCheckboxMenu>
+                </div>
+            </div>
+            <div class="ui-g">
+                <!--BRM025-->
+                <div class="ui-g-6">
+                    <p:button id="cancelButton" value="Cancel" onclick="PF('locationDialog').hide();" style="width:100%;"/>
+                </div>
+                <!--BRM026, BRM027, BRM028-->
+                <div class="ui-g-6">
+                    <p:button id="confirmButton" value="Confirm" onclick="PF('locationDialog').hide();" style="width:100%;"/>
+                </div>
+            </div>
+        </h:form>
+    </p:dialog>
+</h:body>
+</html>
+

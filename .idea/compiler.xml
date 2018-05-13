@@ -22,15 +22,21 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="true" />
+        <module name="dao-api" />
+        <module name="dao-jpa-impl" />
         <module name="deploy" />
         <module name="dto" />
         <module name="entity" />
         <module name="service-api" />
         <module name="service-impl" />
+        <module name="ui" />
         <module name="web-app" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="dao" target="1.8" />
+      <module name="dao-api" target="1.8" />
+      <module name="dao-jpa-impl" target="1.8" />
       <module name="deploy" target="1.8" />
       <module name="domain" target="1.8" />
       <module name="dto" target="1.8" />
@@ -39,6 +45,7 @@
       <module name="service" target="1.8" />
       <module name="service-api" target="1.8" />
       <module name="service-impl" target="1.8" />
+      <module name="ui" target="1.8" />
       <module name="web-app" target="1.8" />
     </bytecodeTargetLevel>
   </component>

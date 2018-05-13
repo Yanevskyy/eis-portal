@@ -6,6 +6,27 @@
         <element id="directory" name="classes">
           <element id="module-output" name="web-app" />
         </element>
+        <element id="directory" name="lib">
+          <element id="archive" name="ui-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="ui" />
+          </element>
+          <element id="library" level="project" name="Maven: org.springframework:spring-core:5.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-context:5.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.webflow:spring-webflow:2.5.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.webflow:spring-binding:2.5.0.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-beans:5.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-expression:5.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-web:5.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-webmvc:5.0.5.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.webflow:spring-faces:2.5.0.RELEASE" />
+          <element id="library" level="project" name="Maven: com.sun.faces:jsf-api:2.2.16" />
+          <element id="library" level="project" name="Maven: com.sun.faces:jsf-impl:2.2.16" />
+          <element id="library" level="project" name="Maven: org.primefaces:primefaces:6.2" />
+          <element id="library" level="project" name="Maven: org.primefaces.themes:all-themes:1.0.10" />
+          <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.20" />
+          <element id="library" level="project" name="Maven: org.springframework:spring-aop:5.0.5.RELEASE" />
+        </element>
       </element>
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/web-app/target/web-app-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />

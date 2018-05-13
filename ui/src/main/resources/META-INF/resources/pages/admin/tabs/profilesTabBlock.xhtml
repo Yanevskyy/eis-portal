@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+<h:body>
+
+  <h:form>
+    <p:tabView>
+      <ui:composition>
+        <p:tab title="Profiles">
+
+          <h:panelGrid columns="1" cellpadding="10">
+            <!--include search part-->
+            <ui:include src="../parts/profilesSearchBlock.xhtml"/>
+            <!--include table part-->
+            <ui:include src="../parts/profilesTableBlock.xhtml"/>
+          </h:panelGrid>
+
+        </p:tab>
+        <p:tab title="Roles">
+          <h:outputLabel value="Available Roles"/>
+          <p:dataTable var="role" value="#{['Admin', 'HR manager', 'HR specialist', 'Demo user']}">
+            <p:column headerText="Name">
+              <p:outputLabel id="roleName" value="#{role}"/>
+            </p:column>
+            <p:column headerText="Action">
+              <h:commandButton id="viewPrivileges" value="View Privileges" action="viewPrivileges"/>
+              <h:commandButton id="editRole" value="Edit" action="editRole"/>
+            </p:column>
+          </p:dataTable>
+          <p:commandButton id="addNewRole" title="Add new role" action="addNewRole"/>
+        </p:tab>
+      </ui:composition>
+    </p:tabView>
+  </h:form>
+
+</h:body>
+</html>
