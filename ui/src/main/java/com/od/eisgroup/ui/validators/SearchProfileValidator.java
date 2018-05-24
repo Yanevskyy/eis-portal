@@ -13,18 +13,35 @@ import java.util.Map;
 /**
  * Validates the symbols according to the specification BRM038, BRM039, BRM040
  */
-@FacesValidator("com.od.eisgroup.ui.validators.SearchProfileValidator")
+@FacesValidator("searchProfileValidator")
 public class SearchProfileValidator implements Validator, ClientValidator {
+    private static final String VALIDATOR_ID = "searchProfileValidator";
     @Override
     public void validate(FacesContext facesContext, UIComponent uiComponent, Object o) throws ValidatorException {
-        if (o.toString().length() > 50) {
-            getExceptionMessage("More than 50 symbols are not allowed");
+        /**
+         * The maximum number of symbols to enter.
+         */
+        final int MAX_SYMBOLS = 50;
+        /**
+         * Test error to display to the user.
+         */
+        String messageMaxSymbol = "More than 50 symbols are not allowed";
+        String messageNotAllowed = "Your search input is not allowed";
+
+        if (o == null) {
+            printExceptionMessage(messageNotAllowed);
+        } else {
+            String searchLine = o.toString();
+            if (searchLine.length() > MAX_SYMBOLS) {
+                printExceptionMessage(messageMaxSymbol);
+            }
+            if (searchLine.isEmpty() || searchLine.equals(" ")) {
+                printExceptionMessage(messageNotAllowed);
+      }
+            if (!checkSymbols(searchLine)) {
+                printExceptionMessage(messageNotAllowed);}
         }
-        if (o.toString().isEmpty() || o.toString().equals(" ")) {
-            getExceptionMessage("Your search input is not allowed");
-        }
-        if (checkSymbols(o.toString())) return;
-        getExceptionMessage("Your search input is not allowed");
+
     }
 
     /**
@@ -47,7 +64,13 @@ public class SearchProfileValidator implements Validator, ClientValidator {
         return false;
     }
 
-    private void getExceptionMessage(String messageException) throws ValidatorException {
+    /**
+     * Throws exception that the search line no validation.
+     *
+     * @param messageException The text of the error.
+     * @throws ValidatorException type exception.
+     */
+    private void printExceptionMessage(String messageException) throws ValidatorException {
         FacesMessage message = new FacesMessage(messageException);
         message.setSeverity(FacesMessage.SEVERITY_ERROR);
         throw new ValidatorException(message);
@@ -60,6 +83,6 @@ public class SearchProfileValidator implements Validator, ClientValidator {
 
     @Override
     public String getValidatorId() {
-        return "com.od.eisgroup.ui.validators.SearchProfileValidator";
+        return VALIDATOR_ID;
     }
 }

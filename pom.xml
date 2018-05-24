@@ -6,7 +6,7 @@
 
     <groupId>com.od.eisgroup</groupId>
     <artifactId>eis-portal</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.1-SNAPSHOT</version>
     <name>Parent Project of EIS Portal</name>
     <packaging>pom</packaging>
 
@@ -22,6 +22,7 @@
         <spring.version>5.0.5.RELEASE</spring.version>
         <webflow.version>2.5.0.RELEASE</webflow.version>
         <jpa.version>2.2</jpa.version>
+        <validation.version>2.0.1.Final</validation.version>
         <hibernate.version>5.2.16.Final</hibernate.version>
         <jsf.version>2.2.16</jsf.version>
         <primefaces.version>6.2</primefaces.version>
@@ -33,6 +34,7 @@
         <maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <sonar.version>3.4.0.905</sonar.version>
+        <ojdbcVersion>12.2.0.1</ojdbcVersion>
     </properties>
 
     <modules>
@@ -51,25 +53,49 @@
             <dependency>
                 <groupId>com.od.eisgroup</groupId>
                 <artifactId>dao</artifactId>
-                <version>${parent.version}</version>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.od.eisgroup</groupId>
+                <artifactId>dao-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.od.eisgroup</groupId>
+                <artifactId>dao-jpa-impl</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.od.eisgroup</groupId>
                 <artifactId>deploy</artifactId>
-                <version>${parent.version}</version>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.od.eisgroup</groupId>
+                <artifactId>entity</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.od.eisgroup</groupId>
                 <artifactId>service</artifactId>
-                <version>${parent.version}</version>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.od.eisgroup</groupId>
+                <artifactId>service-api</artifactId>
+                <version>${project.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.od.eisgroup</groupId>
                 <artifactId>ui</artifactId>
-                <version>${parent.version}</version>
+                <version>${project.version}</version>
             </dependency>
             <!--Module's dependencies-->
 
@@ -164,6 +190,12 @@
             </dependency>
 
             <dependency>
+                <groupId>javax.validation</groupId>
+                <artifactId>validation-api</artifactId>
+                <version>${validation.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-core</artifactId>
                 <version>${hibernate.version}</version>
@@ -224,6 +256,13 @@
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
                 <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.oracle</groupId>
+                <artifactId>ojdbc8</artifactId>
+                <version>${ojdbcVersion}</version>
+                <scope>provided</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

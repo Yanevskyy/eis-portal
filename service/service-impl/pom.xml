@@ -7,10 +7,25 @@
     <parent>
         <artifactId>service</artifactId>
         <groupId>com.od.eisgroup</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>service-impl</artifactId>
     <name>EIS Portal - Services Implementations</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.od.eisgroup</groupId>
+            <artifactId>service-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.od.eisgroup</groupId>
+            <artifactId>dao-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

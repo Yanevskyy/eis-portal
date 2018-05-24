@@ -1,15 +1,18 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="web-app:war exploded">
-    <output-path>$PROJECT_DIR$/web-app/target/web-app-1.0-SNAPSHOT</output-path>
+    <output-path>$PROJECT_DIR$/web-app/target/web-app-1.1-SNAPSHOT</output-path>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
           <element id="module-output" name="web-app" />
         </element>
         <element id="directory" name="lib">
-          <element id="archive" name="ui-1.0-SNAPSHOT.jar">
+          <element id="archive" name="ui-1.1-SNAPSHOT.jar">
             <element id="module-output" name="ui" />
           </element>
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.7" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-core:2.11.0" />
+          <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-api:2.11.0" />
           <element id="library" level="project" name="Maven: org.springframework:spring-core:5.0.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jcl:5.0.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-context:5.0.5.RELEASE" />
@@ -29,7 +32,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/web-app/target/web-app-1.0-SNAPSHOT/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/web-app/target/web-app-1.1-SNAPSHOT/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="web-app/web/Web" />
     </root>
