@@ -1,8 +1,10 @@
 package com.od.eisgroup.service.impl;
 
 import com.od.eisgroup.dao.api.GenericDao;
+import com.od.eisgroup.domain.dto.UserDTO;
 import com.od.eisgroup.domain.entity.User;
 import com.od.eisgroup.service.api.ViewerProfiles;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +33,9 @@ public class ViewerProfilesUsers implements ViewerProfiles {
      */
     private GenericDao userDao;
 
+
+    private ModelMapper modelMapper;
+
     public ViewerProfilesUsers(GenericDao userDao) {
         this.userDao = userDao;
     }
@@ -43,9 +48,9 @@ public class ViewerProfilesUsers implements ViewerProfiles {
      * @return found user list.
      */
     @Override
-    public List<User> displayFoundUsers(String searchPhrase) {
-        List<User> users = displayAllUsers();
-        List<User> foundUsers = new ArrayList<>();
+    public List<UserDTO> displayFoundUsers(String searchPhrase) {
+        List<UserDTO> users = displayAllUsers();
+        List<UserDTO> foundUsers = new ArrayList<>();
         if (users.isEmpty()) {
             return foundUsers;
         }
@@ -66,13 +71,9 @@ public class ViewerProfilesUsers implements ViewerProfiles {
     }
 
     @Override
-    public List<User> displayAllUsers() {
-        List<User> users = userDao.findAll();
-        if (users == null) {
-            return new ArrayList<>();
-        } else {
-            return sortedProfiles(users);
-        }
+    public List<UserDTO> displayAllUsers() {
+        List<UserDTO> usersDTO = convertToDto(userDao.findAll());
+        return sortedProfiles(usersDTO);
     }
 
     /**
@@ -81,7 +82,7 @@ public class ViewerProfilesUsers implements ViewerProfiles {
      * @param users collection for sorted.
      * @return sorted user list.
      */
-    private List<User> sortedProfiles(List<User> users) {
+    private List<UserDTO> sortedProfiles(List<UserDTO> users) {
         Collections.sort(users, new UserProfileComparator());
         return users;
     }
@@ -111,9 +112,9 @@ public class ViewerProfilesUsers implements ViewerProfiles {
      * @param users      all users from DB
      * @return found users.
      */
-    private static List<User> findUserListByPhrase(String searchText, List<User> users) {
-        List<User> foundUsers = new ArrayList<>();
-        for (User user : users) {
+    private List<UserDTO> findUserListByPhrase(String searchText, List<UserDTO> users) {
+        List<UserDTO> foundUsers = new ArrayList<>();
+        for (UserDTO user : users) {
             if (user.getFirstName().toLowerCase().contains(searchText.toLowerCase())) {
                 foundUsers.add(user);
             } else if (user.getLastName().toLowerCase().contains(searchText.toLowerCase())) {
@@ -131,10 +132,10 @@ public class ViewerProfilesUsers implements ViewerProfiles {
      * @param users     all users from DB
      * @return found users.
      */
-    private static List<User> findUserListByPhrase(String wholeName, String partName, List<User> users) {
-        List<User> foundUsers = new ArrayList<>();
+    private static List<UserDTO> findUserListByPhrase(String wholeName, String partName, List<UserDTO> users) {
+        List<UserDTO> foundUsers = new ArrayList<>();
 
-        for (User user : users) {
+        for (UserDTO user : users) {
             if (wholeName.equalsIgnoreCase(user.getFirstName()) &&
                     user.getLastName().toLowerCase().contains(partName.toLowerCase())) {
                 foundUsers.add(user);
@@ -144,5 +145,22 @@ public class ViewerProfilesUsers implements ViewerProfiles {
             }
         }
         return foundUsers;
+    }
+
+    /**
+     * Converts the user list to userDao list.
+     * @param users list with users.
+     * @return userDao list
+     */
+    private List<UserDTO> convertToDto(List<User> users) {
+        List<UserDTO> usersDTO = new ArrayList<>();
+        if (users == null) {
+            return usersDTO;
+        } else {
+            for (User user : users) {
+                usersDTO.add(modelMapper.map(user, UserDTO.class));
+            }
+        }
+        return usersDTO;
     }
 }

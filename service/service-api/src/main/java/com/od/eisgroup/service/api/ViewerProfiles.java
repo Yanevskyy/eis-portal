@@ -1,11 +1,12 @@
 package com.od.eisgroup.service.api;
 
-import com.od.eisgroup.domain.entity.User;
+import com.od.eisgroup.domain.dto.UserDTO;
 
 import java.util.List;
 
 /**
  * Finds all users and finds users by search phrase.
+ *
  * @author Yanevskyy Igor i.yanevskyy@gmail.com.
  * @since 1.2
  */
@@ -17,13 +18,13 @@ public interface ViewerProfiles {
      * @param searchPhrase phrase to search for.
      * @return collection  of found users.
      */
-    List<User> displayFoundUsers(String searchPhrase);
+    List<UserDTO> displayFoundUsers(String searchPhrase);
 
     /**
      * Displays all users from DB.
      *
      * @return collection all users.
      */
-    List<User> displayAllUsers();
+    List<UserDTO> displayAllUsers();
 
 }

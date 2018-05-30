@@ -17,6 +17,11 @@
             <groupId>com.od.eisgroup</groupId>
             <artifactId>entity</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.od.eisgroup</groupId>
+            <artifactId>dto</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 
 </project>
