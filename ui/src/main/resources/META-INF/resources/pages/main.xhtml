@@ -1,0 +1,55 @@
+<?xml version = "1.0" encoding = "UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui" xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+<f:view>
+    <h:head>
+        <ui:include src="dialogs/location-dialog.xhtml"/>
+        <h:outputStylesheet library="resources" name="css/reset.css" />
+        <h:outputStylesheet library="resources" name="css/style.css" />
+    </h:head>
+    <h:body>
+        <div class="header">
+            <div class="buttons">
+                <h:form id="headerLeftCornerButtons">
+                    <!--BRM011-->
+                    <p:commandButton id="newLetterButton" styleClass="button" value="New Letter"/>
+                    <!--BRM013-->
+                    <p:commandButton id="newReminderButton" styleClass="button" value="New Reminder" />
+                    <!--BRM015-->
+                    <p:commandButton id="templatesButton" styleClass="button" value="Templates" />
+                </h:form>
+            </div>
+            <div class="right_corner">
+                <h:form id="headerRightCornerLinks">
+                    <ul>
+                        <!--BRM009-->
+                        <li>|
+                            <p:commandLink id="adminLink">
+                                <h:outputText id="adminLabel" value="admin" />
+                            </p:commandLink>
+                        </li>
+                        <!--BRM008-->
+                        <li>|
+                            <p:commandLink id="locationLink" onclick="PF('locationDialog').show();">
+                                <h:outputText id="locationLabel" value="Location" />
+                            </p:commandLink>
+                        </li>
+                        <!--BRM007-->
+                        <li>|
+                            <p:commandLink id="logoutLink">
+                                <h:outputText id="logoutLabel" value="Logout" />
+                            </p:commandLink>
+                        </li>
+                        <!--BRM006-->
+                        <li> <p:outputLabel id="nameLabel" value="Parpalak Alex"/></li>
+                    </ul>
+                </h:form>
+            </div>
+        </div>
+    </h:body>
+</f:view>
+</html>
