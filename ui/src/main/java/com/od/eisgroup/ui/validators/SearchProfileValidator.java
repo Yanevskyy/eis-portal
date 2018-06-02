@@ -52,16 +52,7 @@ public class SearchProfileValidator implements Validator, ClientValidator {
      * @return
      */
     private boolean checkSymbols(String message) {
-        if (message.matches("([A-Za-z\\s\\-]+)")) {
-            int space = 0;
-            int dash = 0;
-            for (char symbol : message.toCharArray()) {
-                if (symbol == ' ') space++;
-                if (symbol == '-') dash++;
-            }
-            if (space < 2 && dash < 2) return true;
-        }
-        return false;
+        return message.matches("([A-Za-z\\s\\-]+)");
     }
 
     /**

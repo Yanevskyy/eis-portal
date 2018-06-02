@@ -4,7 +4,11 @@ import com.od.eisgroup.dao.api.GenericDao;
 import com.od.eisgroup.domain.dto.UserDTO;
 import com.od.eisgroup.domain.entity.User;
 import com.od.eisgroup.service.api.ViewerProfiles;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,27 +22,22 @@ import java.util.List;
  * @author Yanevskyy Igor i.yanevskyy@gmail.com.
  * @since 1.2
  */
+@Getter
+@Setter
 @Service
+@NoArgsConstructor
 public class ViewerProfilesUsers implements ViewerProfiles {
-    /**
-     * Count part in the search phrase.
-     */
-    private final static int ONE_PART_PHRASE = 1;
-    /**
-     * Count part in the search phrase.
-     */
-    private final static int TWO_PART_PHRASE = 2;
     /**
      * DAO entity
      */
+    @Autowired
     private GenericDao userDao;
 
-
+    /**
+     * The entity user to userDTO converter.
+     */
+    @Autowired
     private ModelMapper modelMapper;
-
-    public ViewerProfilesUsers(GenericDao userDao) {
-        this.userDao = userDao;
-    }
 
     /**
      * If the search phrase contain two parts who separated by space, then first part that before the space,
@@ -55,18 +54,8 @@ public class ViewerProfilesUsers implements ViewerProfiles {
             return foundUsers;
         }
 
-        String[] partsSearchPhrase = separatorPhrase(searchPhrase);
-
-        if (partsSearchPhrase.length == ONE_PART_PHRASE) {
-            String partName = partsSearchPhrase[0];
-            foundUsers = findUserListByPhrase(partName, users);
-        } else {
-            if (partsSearchPhrase.length == TWO_PART_PHRASE) {
-                String wholePartName = partsSearchPhrase[0];
-                String secondPartName = partsSearchPhrase[1];
-                foundUsers = findUserListByPhrase(wholePartName, secondPartName, users);
-            }
-        }
+        String[] partsSearchPhrase = searchPhrase.trim().split(" ");
+        foundUsers = findUserListByPhrase(partsSearchPhrase, users);
         return foundUsers;
     }
 
@@ -74,6 +63,95 @@ public class ViewerProfilesUsers implements ViewerProfiles {
     public List<UserDTO> displayAllUsers() {
         List<UserDTO> usersDTO = convertToDto(userDao.findAll());
         return sortedProfiles(usersDTO);
+    }
+
+    /**
+     * Returns user list who have a "search text" in the last name or in the first name.
+     *
+     * @return found users.
+     */
+    private List<UserDTO> findUserListByPhrase(String[] searchPhrases, List<UserDTO> users) {
+        List<UserDTO> foundUsers = new ArrayList<>();
+        for (UserDTO user : users) {
+            String userName = user.getFirstName().toLowerCase() + " " + user.getLastName().toLowerCase();
+            int countReplace = counterReplacePhrase(userName, searchPhrases);
+            if (searchPhrases.length == countReplace) {
+                foundUsers.add(user);
+            }
+        }
+
+        return foundUsers;
+    }
+
+    /**
+     * Counts how many parts of the search phrase are contained in the full (first name + last name) of the user name.
+     *
+     * @param userName
+     * @param searchPhrases
+     * @return
+     */
+    private int counterReplacePhrase(String userName, String[] searchPhrases) {
+        int countReplace = 0;
+        int lengthName = userName.length();
+        for (String partPhrase : searchPhrases) {
+            if (partPhrase.contains("-") && userName.contains("-")) {
+                partPhrase = takeOutPartWithDash(userName, partPhrase);
+            }
+            userName = userName.replace(partPhrase.toLowerCase(), "");
+            if (userName.length() < lengthName) {
+                lengthName = userName.length();
+                countReplace++;
+            } else {
+                return countReplace;
+            }
+        }
+        return countReplace;
+    }
+
+    /**
+     * If all parts of the name contain all parts of the phrase.
+     * At the same time observing the order of the 1st in the 1st, 2nd in the 2nd, then return true.
+     *
+     * @param fragmentWithDash a phrase containing a dash.
+     * @param partsName        a part name containing a dash.
+     * @return result of comparison.
+     */
+    private boolean containsPhrases(String[] fragmentWithDash, String[] partsName) {
+        if (fragmentWithDash.length != partsName.length) {
+            return false;
+        }
+        for (int i = 0; i < fragmentWithDash.length; i++) {
+            if (partsName[i].length() < fragmentWithDash[i].length()) {
+                return false;
+            } else {
+                if (!fragmentWithDash[i].equals(partsName[i].substring(0, fragmentWithDash[i].length()))) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Finds the first or last name part with a dash that matches the search phrase with a dash.
+     * According to the ticket EISHR-30. If search value is Ivanov-Koval, I expect System to show as search result
+     * Ivanov-Koval and Ivanova-Koval.
+     * If a match is found, returns part of the name. If not, then part of the phrase.
+     *
+     * @param userName   The full of the user name.
+     * @param partPhrase The search phrase.
+     * @return Part of user name or search phrase.
+     */
+    private String takeOutPartWithDash(String userName, String partPhrase) {
+        String[] partsName = userName.split(" ");
+        for (String part : partsName) {
+            if (part.contains("-")) {
+                if (containsPhrases(partPhrase.split("-"), part.split("-"))) {
+                    return part;
+                }
+            }
+        }
+        return partPhrase;
     }
 
     /**
@@ -88,67 +166,8 @@ public class ViewerProfilesUsers implements ViewerProfiles {
     }
 
     /**
-     * Separates the search phrase into parts.
-     *
-     * @param searchPhrase the phrase for separates.
-     * @return array who contain the parts phrase.
-     */
-    private static String[] separatorPhrase(String searchPhrase) {
-        int indexSpace = searchPhrase.indexOf(" ");
-        if (indexSpace < 0) {
-            return new String[]{searchPhrase};
-        } else if (indexSpace == 0 || indexSpace == searchPhrase.length() - 1) {
-            String newSearchPhrase = searchPhrase.replaceAll(" ", "");
-            return new String[]{newSearchPhrase};
-        } else {
-            return searchPhrase.split(" ");
-        }
-    }
-
-    /**
-     * Returns user list who have a "search text" in the last name or in the first name.
-     *
-     * @param searchText the search text.
-     * @param users      all users from DB
-     * @return found users.
-     */
-    private List<UserDTO> findUserListByPhrase(String searchText, List<UserDTO> users) {
-        List<UserDTO> foundUsers = new ArrayList<>();
-        for (UserDTO user : users) {
-            if (user.getFirstName().toLowerCase().contains(searchText.toLowerCase())) {
-                foundUsers.add(user);
-            } else if (user.getLastName().toLowerCase().contains(searchText.toLowerCase())) {
-                foundUsers.add(user);
-            }
-        }
-        return foundUsers;
-    }
-
-    /**
-     * Returns user list who have a first part name is whole and second part name is whole or not.
-     *
-     * @param wholeName first part name is whole.
-     * @param partName  second part name is whole or not.
-     * @param users     all users from DB
-     * @return found users.
-     */
-    private static List<UserDTO> findUserListByPhrase(String wholeName, String partName, List<UserDTO> users) {
-        List<UserDTO> foundUsers = new ArrayList<>();
-
-        for (UserDTO user : users) {
-            if (wholeName.equalsIgnoreCase(user.getFirstName()) &&
-                    user.getLastName().toLowerCase().contains(partName.toLowerCase())) {
-                foundUsers.add(user);
-            } else if (wholeName.equalsIgnoreCase(user.getLastName()) &&
-                    user.getFirstName().toLowerCase().contains(partName.toLowerCase())) {
-                foundUsers.add(user);
-            }
-        }
-        return foundUsers;
-    }
-
-    /**
      * Converts the user list to userDao list.
+     *
      * @param users list with users.
      * @return userDao list
      */
