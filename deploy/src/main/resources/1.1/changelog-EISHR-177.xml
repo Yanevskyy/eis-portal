@@ -1,0 +1,183 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <!--TemplateTypes-->
+    <changeSet id="1" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created table TemplateTypes</comment>
+        <createTable tableName="TemplateTypes">
+            <column name="id" type="bigint" />
+            <column name="templateName" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--Statuses-->
+    <changeSet id="2" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created table Statuses</comment>
+        <createTable tableName="Statuses">
+            <column name="id" type="bigint" />
+            <column name="statusName" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--Countries-->
+    <changeSet id="3" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created table Countries</comment>
+        <createTable tableName="Countries">
+            <column name="id" type="bigint" />
+            <column name="countryName" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--Locations-->
+    <changeSet id="4" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created table Locations</comment>
+        <createTable tableName="Locations">
+            <column name="id" type="bigint" />
+            <column name="cityName" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="countryId" type="bigint">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--Employees-->
+    <changeSet id="5" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created table Employees</comment>
+        <createTable tableName="Employees">
+            <column name="id" type="bigint" />
+            <column name="firstName" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="lastName" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="hireDate" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="birthDate" type="date">
+                <constraints nullable="false" />
+            </column>
+            <column name="email" type="varchar(255)">
+                <constraints nullable="false" />
+            </column>
+            <column name="locationId" type="bigint">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--Letters-->
+    <changeSet id="6" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created table Letters</comment>
+        <createTable tableName="Letters">
+            <column name="id" type="bigint" />
+            <column name="employeeId" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="statusId" type="bigint">
+                <constraints nullable="false" />
+            </column>
+            <column name="templateTypeId" type="bigint">
+                <constraints nullable="false" />
+            </column>
+        </createTable>
+    </changeSet>
+
+    <!--PK_TemplateTypes-->
+    <changeSet id="7" author="stud-oparpalak" >
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint PK_TemplateTypes</comment>
+        <addPrimaryKey tableName="TemplateTypes"
+                       constraintName="PK_TemplateTypes"
+                       columnNames="id" />
+    </changeSet>
+
+    <!--PK_Statuses-->
+    <changeSet id="8" author="stud-oparpalak" >
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint PK_Statuses</comment>
+        <addPrimaryKey tableName="Statuses"
+                       constraintName="PK_Statuses"
+                       columnNames="id" />
+    </changeSet>
+
+    <!--PK_Countries-->
+    <changeSet id="9" author="stud-oparpalak" >
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint PK_Countries</comment>
+        <addPrimaryKey tableName="Countries"
+                       constraintName="PK_Countries"
+                       columnNames="id" />
+    </changeSet>
+
+    <!--PK_Countries-->
+    <changeSet id="10" author="stud-oparpalak" >
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint PK_Locations</comment>
+        <addPrimaryKey tableName="Locations"
+                       constraintName="PK_Locations"
+                       columnNames="id" />
+    </changeSet>
+
+    <!--PK_Employees-->
+    <changeSet id="11" author="stud-oparpalak" >
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint PK_Employees</comment>
+        <addPrimaryKey tableName="Employees"
+                       constraintName="PK_Employees"
+                       columnNames="id" />
+    </changeSet>
+
+    <!--PK_Letters-->
+    <changeSet id="12" author="stud-oparpalak" >
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint PK_Letters</comment>
+        <addPrimaryKey tableName="Letters"
+                       constraintName="PK_Letters"
+                       columnNames="id" />
+    </changeSet>
+
+    <!--FK from LETTER to TEMPLATE_TYPE-->
+    <changeSet id="13" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint FK_Letters_TemplateTypes</comment>
+        <addForeignKeyConstraint constraintName="FK_Letters_TemplateTypes"
+                                 baseTableName="Letters" baseColumnNames="templateTypeId" referencedTableName="TemplateTypes"
+                                 referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE" />
+    </changeSet>
+
+    <!--FK from LETTER to STATUS-->
+    <changeSet id="14" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint FK_Letters_Statuses</comment>
+        <addForeignKeyConstraint constraintName="FK_Letters_Statuses"
+                                 baseTableName="Letters" baseColumnNames="statusId" referencedTableName="Statuses"
+                                 referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE" />
+    </changeSet>
+
+    <!--FK from LOCATION to COUNTRY-->
+    <changeSet id="15" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint FK_Locations_Countries</comment>
+        <addForeignKeyConstraint constraintName="FK_Locations_Countries"
+                                 baseTableName="Locations" baseColumnNames="countryId" referencedTableName="Countries"
+                                 referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE" />
+    </changeSet>
+
+    <!--FK from EMPLOYEE to LOCATION-->
+    <changeSet id="16" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint FK_Employees_Locations</comment>
+        <addForeignKeyConstraint constraintName="FK_Employees_Locations"
+                                 baseTableName="Employees" baseColumnNames="locationId" referencedTableName="Locations"
+                                 referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE" />
+    </changeSet>
+
+    <!--FK from LETTER to EMPLOYEE-->
+    <changeSet id="17" author="stud-oparpalak">
+        <comment>EISHR-177, EISHR-220: Create liquibase script for letters, created constraint FK_Letters_Employees</comment>
+        <addForeignKeyConstraint constraintName="FK_Letters_Employees"
+                                 baseTableName="Letters" baseColumnNames="employeeId" referencedTableName="Employees"
+                                 referencedColumnNames="id" onDelete="CASCADE" onUpdate="CASCADE" />
+    </changeSet>
+</databaseChangeLog>
