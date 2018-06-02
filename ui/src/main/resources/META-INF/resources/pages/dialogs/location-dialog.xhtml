@@ -8,33 +8,37 @@
 
 <h:head>
     <title>Locations</title>
+    <h:outputStylesheet library="resources" name="css/style.css" />
 </h:head>
 
 <h:body>
-    <p:dialog id="locDialog" header="Select location(s)" widgetVar="locationDialog"  modal="true" closable="false"
-              resizable="false" width="30%" showEffect="slide" hideEffect="slide" position="top">
-        <h:form>
-            <div class="ui-g">
-                <div class="ui-g-4">
-                    <h:outputLabel for="locations" value="Locations: "/>
-                </div>
-                <div class="ui-g-4">
-                    <p:selectCheckboxMenu id="locations"  label="Locations" multiple="true"
-                                      filter="false" scrollHeight="50" panelStyle="width: 20%;">
-                        <f:selectItem itemLabel="Odessa" itemValue="odessa"/>
-                        <f:selectItem itemLabel="Minsk" itemValue="minsk"/>
-                        <f:selectItem itemLabel="San Francisco" itemValue="sfrancisco"/>
-                    </p:selectCheckboxMenu>
-                </div>
-            </div>
+    <p:dialog id="locationDialog" widgetVar="locationDialog" modal="true" closable="false"
+              resizable="false" width="30%" showEffect="slide" hideEffect="slide" position="right top" styleClass="locDialog">
+        <div class="locationDialogHeader">
+            <p>Select Location(s)</p>
+        </div>
+        <h:form id="locDialogForm">
+            <p:scrollPanel id="scrollPanel" styleClass="scrollPanel">
+
+                <!--CheckBox 'All'-->
+                <p:selectBooleanCheckbox value="#{locationController.allSelected}" itemLabel="All">
+                    <p:ajax listener="#{locationController.selectAll}" />
+                </p:selectBooleanCheckbox>
+
+                <!--Location checkboxes-->
+                <p:selectManyCheckbox id="locations" value="#{locationController.selectedLocations}" layout="pageDirection" columns="1">
+                    <f:selectItems value="#{locationController.locations}" var="location" itemLabel="#{location}" itemValue="#{location}"/>
+                </p:selectManyCheckbox>
+
+            </p:scrollPanel>
             <div class="ui-g">
                 <!--BRM025-->
                 <div class="ui-g-6">
-                    <p:button id="cancelButton" value="Cancel" onclick="PF('locationDialog').hide();" style="width:100%;"/>
+                    <p:button id="cancelButton" value="Cancel" onclick="PF('locationDialog').hide();" styleClass="locationDialogButton"/>
                 </div>
                 <!--BRM026, BRM027, BRM028-->
                 <div class="ui-g-6">
-                    <p:button id="confirmButton" value="Confirm" onclick="PF('locationDialog').hide();" style="width:100%;"/>
+                    <p:button id="confirmButton" value="Confirm" onclick="PF('locationDialog').hide();" styleClass="locationDialogButton"/>
                 </div>
             </div>
         </h:form>

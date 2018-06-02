@@ -4,4 +4,10 @@
       xsi:schemaLocation="http://www.springframework.org/schema/webflow
                           http://www.springframework.org/schema/webflow/spring-webflow.xsd">
 
+    <view-state id="mainPage" view="/pages/main.xhtml">
+        <transition on="goToAdmin" to="adminMainPage"/>
+    </view-state>
+
+    <view-state id="adminMainPage" view="/pages/admin/adminMainPage.xhtml"/>
+
 </flow>

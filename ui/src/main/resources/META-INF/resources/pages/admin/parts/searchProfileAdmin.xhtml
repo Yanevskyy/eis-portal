@@ -8,10 +8,14 @@
                     <f:validator validatorId="searchProfileValidator"/>
                 </p:inputText>
             </p:spacer>
-            <p:commandButton value="Search" id="searchProfile" disabled="#{facesContext.validationFailed}"/>
+            <p:commandButton value="Search" id="searchProfile" disabled="#{facesContext.validationFailed}"
+                actionListener="#{profileSearchController.searchProfiles()}"
+                update="adminPageForm:adminTabView:tableProfiles"/>
         </p:column>
         <p:column>
-            <p:messages id="messages" autoUpdate="true" style="font-size: small"/>
+            <p:messages id="messages" style="font-size: small">
+                    <p:autoUpdate/>
+            </p:messages>
             <p:message for="inputProfile"/>
         </p:column>
     </h:panelGrid>

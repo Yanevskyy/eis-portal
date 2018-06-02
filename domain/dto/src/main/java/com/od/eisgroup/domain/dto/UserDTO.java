@@ -1,7 +1,5 @@
 package com.od.eisgroup.domain.dto;
 
-import com.od.eisgroup.domain.entity.UserStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +9,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
-
-/**
-* Data Transfer Object for {@link com.od.eisgroup.domain.entity.User} entity
-*
-* @author Alice Klochkova, Dmitriy Osipov
-* @since 1.1
-*/
 
 @Getter
 @Setter
@@ -37,33 +28,34 @@ public class UserDTO implements Serializable {
     @NotNull
     private RoleDTO role;
     @NotNull
-    private UserStatus status;
+    private UserStatusDTO userStatusDTO;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof UserDTO)) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(email, userDTO.email);
+        return Objects.equals(firstName, userDTO.firstName) &&
+                Objects.equals(lastName, userDTO.lastName) &&
+                Objects.equals(email, userDTO.email) &&
+                Objects.equals(role, userDTO.role) &&
+                userStatusDTO == userDTO.userStatusDTO;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(email);
+        return Objects.hash(firstName, lastName, email, role, userStatusDTO);
     }
 
     @Override
     public String toString() {
         return "UserDTO{" +
-                "firstName='" + firstName + '\'' +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", status='" + status + '\'' +
                 ", role=" + role +
+                ", userStatusDTO=" + userStatusDTO +
                 '}';
     }
 }

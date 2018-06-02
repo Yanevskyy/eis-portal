@@ -12,4 +12,10 @@
     <name>EIS Portal - DAO API</name>
     <packaging>jar</packaging>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.od.eisgroup</groupId>
+            <artifactId>entity</artifactId>
+        </dependency>
+    </dependencies>
 </project>

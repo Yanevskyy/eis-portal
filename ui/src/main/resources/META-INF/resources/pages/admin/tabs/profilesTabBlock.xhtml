@@ -14,9 +14,9 @@
         </p:tab>
         <p:tab title="Roles">
           <h:outputLabel value="Available Roles"/>
-          <p:dataTable var="role" value="#{['Admin', 'HR manager', 'HR specialist', 'Demo user']}">
+          <p:dataTable var="role" value="#{roleController.roleDTOS}">
             <p:column headerText="Name">
-              <p:outputLabel id="roleName" value="#{role}"/>
+              <p:outputLabel id="roleName" value="#{role.name}"/>
             </p:column>
             <p:column headerText="Action">
               <h:commandButton id="viewPrivileges" value="View Privileges" action="viewPrivileges"/>

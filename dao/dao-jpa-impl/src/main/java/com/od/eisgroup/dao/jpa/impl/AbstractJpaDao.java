@@ -40,7 +40,7 @@ public abstract class AbstractJpaDao<E,K> implements GenericDao<E,K> {
 
     @Override
     public List<E> findAll() {
-        return entityManager.createQuery( "from " + clazz.getName() )
+        return entityManager.createQuery("from " + clazz.getName(), clazz)
                 .getResultList();
     }
 

@@ -20,9 +20,5 @@
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.od.eisgroup</groupId>
-            <artifactId>entity</artifactId>
-        </dependency>
     </dependencies>
 </project>

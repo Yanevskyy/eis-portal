@@ -1,5 +1,6 @@
 package com.od.eisgroup.dao.jpa.impl;
 
+import com.od.eisgroup.dao.api.RoleDAO;
 import com.od.eisgroup.domain.entity.Role;
 import org.springframework.stereotype.Repository;
 
@@ -10,7 +11,7 @@ import org.springframework.stereotype.Repository;
  *
  */
 @Repository
-public class RoleDaoImp extends AbstractJpaDao<Role, Long> {
+public class RoleDaoImp extends AbstractJpaDao<Role, Long> implements RoleDAO {
 
     public RoleDaoImp() {
         super(Role.class);

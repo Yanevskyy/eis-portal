@@ -5,6 +5,7 @@ package com.od.eisgroup.service.impl;/**
 import com.od.eisgroup.domain.dto.PrivilegeDTO;
 import com.od.eisgroup.domain.dto.RoleDTO;
 import com.od.eisgroup.domain.dto.UserDTO;
+import com.od.eisgroup.domain.dto.UserStatusDTO;
 import com.od.eisgroup.domain.entity.Privilege;
 import com.od.eisgroup.domain.entity.Role;
 import com.od.eisgroup.domain.entity.User;
@@ -23,7 +24,7 @@ public class UsersCreator {
     private User user4 = createUser(5L, "Abdurrahman ad-Dakman Wahidur", "Gus Dur", "mail1@gmail.com");
     private User user5 = createUser(6L, "Jacques-Yves", "Cousteau", "mail1@gmail.com");
     private User user6 = createUser(7L, "Patrice Emery", "Lumumba", "mail1@gmail.com");
-    private List<User> users = new ArrayList<>( Arrays.asList(user, user1, user2, user3, user4, user5, user6));
+    private List<User> users = new ArrayList<>(Arrays.asList(user, user1, user2, user3, user4, user5, user6));
 
     private UserDTO userDTO = createUserDTO(1L, "Sasha", "Ivanov-Koval", "sasha@gmail.com");
     private UserDTO user1DTO = createUserDTO(2L, "Sasha", "Ivanova-Koval", "sashaIv@gmail.com");
@@ -32,7 +33,7 @@ public class UsersCreator {
     private UserDTO user4DTO = createUserDTO(5L, "Abdurrahman ad-Dakman Wahidur", "Gus Dur", "mail1@gmail.com");
     private UserDTO user5DTO = createUserDTO(6L, "Jacques-Yves", "Cousteau", "mail1@gmail.com");
     private UserDTO user6DTO = createUserDTO(7L, "Patrice Emery", "Lumumba", "mail1@gmail.com");
-    private List<UserDTO> usersDTO = new ArrayList<>(Arrays.asList(user5DTO, user3DTO, user4DTO,  userDTO,
+    private List<UserDTO> usersDTO = new ArrayList<>(Arrays.asList(user5DTO, user3DTO, user4DTO, userDTO,
             user1DTO, user2DTO, user6DTO));
 
     private UserDTO createUserDTO(long id, String userFirstName, String userLastName, String userEmail) {
@@ -41,7 +42,7 @@ public class UsersCreator {
         user.setLastName(userLastName);
         user.setFirstName(userFirstName);
         user.setEmail(userEmail);
-        user.setStatus( UserStatus.AVAILABLE);
+        user.setUserStatusDTO(UserStatusDTO.AVAILABLE);
         user.setRole(createRoleDTO());
         return user;
     }

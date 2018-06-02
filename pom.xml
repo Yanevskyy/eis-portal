@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.od.eisgroup</groupId>
@@ -11,13 +9,18 @@
     <packaging>pom</packaging>
 
     <properties>
+        <root-dir>${maven.multiModuleProjectDirectory}</root-dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <slf4j.version>1.7.7</slf4j.version>
+        <skipUnitTests>false</skipUnitTests>
+        <skipIntegrationTests>false</skipIntegrationTests>
+
+        <slf4j.version>1.8.0-beta2</slf4j.version>
         <log4j.version>2.11.0</log4j.version>
         <commons-collections4.version>4.1</commons-collections4.version>
         <lombok.version>1.16.20</lombok.version>
+        <modelmapper.version>2.0.0</modelmapper.version>
         <quartz.version>2.3.0</quartz.version>
         <spring.version>5.0.5.RELEASE</spring.version>
         <webflow.version>2.5.0.RELEASE</webflow.version>
@@ -30,13 +33,14 @@
         <liquibase.version>3.6.1</liquibase.version>
         <h2db.version>1.4.197</h2db.version>
         <junit.version>4.12</junit.version>
-        <mockito-core.version>2.16.0</mockito-core.version>
+        <mockito.version>2.18.3</mockito.version>
         <maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
         <maven-failsafe-plugin.version>2.21.0</maven-failsafe-plugin.version>
         <build-helper-maven-plugin.version>3.0.0</build-helper-maven-plugin.version>
         <sonar.version>3.4.0.905</sonar.version>
         <ojdbcVersion>12.2.0.1</ojdbcVersion>
-        <modelmapper.version>2.0.0</modelmapper.version>
+
+        <environment>&lt;&lt;PLEASE SELECT 'local' OR 'production' PROFILE!!!&gt;&gt;</environment>
     </properties>
 
     <modules>
@@ -47,6 +51,11 @@
         <module>ui</module>
         <module>web-app</module>
     </modules>
+
+    <scm>
+        <connection>scm:hg:http://odsstudhg01.exigengroup.com/hg/eis-portal</connection>
+      <tag>Release-1.0</tag>
+  </scm>
 
     <dependencyManagement>
         <dependencies>
@@ -84,6 +93,12 @@
 
             <dependency>
                 <groupId>com.od.eisgroup</groupId>
+                <artifactId>dto</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.od.eisgroup</groupId>
                 <artifactId>service</artifactId>
                 <version>${project.version}</version>
             </dependency>
@@ -91,6 +106,12 @@
             <dependency>
                 <groupId>com.od.eisgroup</groupId>
                 <artifactId>service-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.od.eisgroup</groupId>
+                <artifactId>service-impl</artifactId>
                 <version>${project.version}</version>
             </dependency>
 
@@ -108,9 +129,9 @@
             </dependency>
 
             <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>${slf4j.version}</version>
+                <groupId>org.apache.logging.log4j</groupId>
+                <artifactId>log4j-slf4j-impl</artifactId>
+                <version>${log4j.version}</version>
             </dependency>
 
             <dependency>
@@ -135,6 +156,12 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.modelmapper</groupId>
+                <artifactId>modelmapper</artifactId>
+                <version>${modelmapper.version}</version>
             </dependency>
 
             <dependency>
@@ -186,9 +213,27 @@
             </dependency>
 
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-orm</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-jdbc</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+
+            <dependency>
                 <groupId>javax.persistence</groupId>
                 <artifactId>javax.persistence-api</artifactId>
                 <version>${jpa.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-tx</artifactId>
+                <version>${spring.version}</version>
             </dependency>
 
             <dependency>
@@ -227,11 +272,11 @@
                 <version>${primefaces.version}</version>
             </dependency>
 
-            <dependency>
-                <groupId>org.primefaces.themes</groupId>
-                <artifactId>all-themes</artifactId>
-                <version>${primefaces-themes.version}</version>
-            </dependency>
+            <!--<dependency>-->
+                <!--<groupId>org.primefaces.themes</groupId>-->
+                <!--<artifactId>all-themes</artifactId>-->
+                <!--<version>${primefaces-themes.version}</version>-->
+            <!--</dependency>-->
 
             <dependency>
                 <groupId>org.liquibase</groupId>
@@ -254,13 +299,6 @@
             </dependency>
 
             <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito-core.version}</version>
-                <scope>test</scope>
-            </dependency>
-
-            <dependency>
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-test</artifactId>
                 <version>${spring.version}</version>
@@ -268,20 +306,25 @@
             </dependency>
 
             <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
                 <groupId>com.oracle</groupId>
                 <artifactId>ojdbc8</artifactId>
                 <version>${ojdbcVersion}</version>
-                <scope>provided</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.modelmapper</groupId>
-                <artifactId>modelmapper</artifactId>
-                <version>${modelmapper.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
 
     <repositories>
+        <repository>
+            <id>project-repo</id>
+            <url>file://${root-dir}/libs</url>
+        </repository>
         <repository>
             <id>prime-repo</id>
             <name>PrimeFaces Maven Repository</name>
@@ -300,24 +343,15 @@
 
         <profile>
             <id>SkipUnitTestExecution</id>
-            <build>
-                <plugins>
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>${maven-surefire-plugin.version}</version>
-                        <configuration>
-                            <skipTests>true</skipTests>
-                        </configuration>
-                    </plugin>
-                </plugins>
-            </build>
+            <properties>
+                <skipUnitTests>true</skipUnitTests>
+            </properties>
         </profile>
 
         <profile>
             <id>SkipIntegrationTestExecution</id>
             <properties>
-                <skipITs>true</skipITs>
+                <skipIntegrationTests>true</skipIntegrationTests>
             </properties>
         </profile>
 
@@ -344,18 +378,57 @@
                 </plugins>
             </build>
         </profile>
+
+        <profile>
+            <id>local</id>
+            <activation>
+                <property>
+                    <name>environment</name>
+                    <value>local</value>
+                </property>
+            </activation>
+            <properties>
+                <environment>local</environment>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>production</id>
+            <activation>
+                <property>
+                    <name>environment</name>
+                    <value>production</value>
+                </property>
+            </activation>
+            <properties>
+                <environment>production</environment>
+            </properties>
+        </profile>
     </profiles>
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
+                <configuration>
+                    <skipTests>${skipUnitTests}</skipTests>
+                    <parallel>methods</parallel>
+                    <threadCount>8</threadCount>
+                    <excludes>
+                        <exclude>**/*ITest.java</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>${build-helper-maven-plugin.version}</version>
                 <executions>
                     <execution>
-                        <id>add-test-source</id>
-                        <phase>process-resources</phase>
+                        <id>add-integration-test-source</id>
+                        <phase>generate-test-sources</phase>
                         <goals>
                             <goal>add-test-source</goal>
                         </goals>
@@ -367,7 +440,7 @@
                     </execution>
                     <execution>
                         <id>add-integration-test-resources</id>
-                        <phase>process-resources</phase>
+                        <phase>generate-test-resources</phase>
                         <goals>
                             <goal>add-test-resource</goal>
                         </goals>
@@ -386,20 +459,37 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
                 <version>${maven-failsafe-plugin.version}</version>
+                <configuration>
+                    <skipTests>${skipIntegrationTests}</skipTests>
+                    <parallel>methods</parallel>
+                    <threadCount>8</threadCount>
+                    <includes>
+                        <include>**/*ITest.java</include>
+                    </includes>
+                </configuration>
                 <executions>
                     <execution>
                         <id>integration-test</id>
+                        <phase>integration-test</phase>
                         <goals>
                             <goal>integration-test</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>verify</id>
-                        <goals>
                             <goal>verify</goal>
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-release-plugin</artifactId>
+                <version>2.5.3</version>
+                <configuration>
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <tagNameFormat>v@{project.version}</tagNameFormat>
+                    <scmCommentPrefix>[Release]: </scmCommentPrefix>
+                    <preparationGoals>clean verify</preparationGoals>
+                    <completionGoals>clean verify</completionGoals>
+                    <pushChanges>false</pushChanges>
+                </configuration>
             </plugin>
         </plugins>
     </build>
