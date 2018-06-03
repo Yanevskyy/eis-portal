@@ -13,25 +13,16 @@
           <element id="archive" name="dto-1.1-SNAPSHOT.jar">
             <element id="module-output" name="dto" />
           </element>
+          <element id="archive" name="entity-1.1-SNAPSHOT.jar">
+            <element id="module-output" name="entity" />
+          </element>
           <element id="library" level="project" name="Maven: org.projectlombok:lombok:1.16.20" />
           <element id="library" level="project" name="Maven: javax.validation:validation-api:2.0.1.Final" />
           <element id="archive" name="service-api-1.1-SNAPSHOT.jar">
             <element id="module-output" name="service-api" />
           </element>
-          <element id="archive" name="entity-1.1-SNAPSHOT.jar">
-            <element id="module-output" name="entity" />
-          </element>
           <element id="archive" name="service-impl-1.1-SNAPSHOT.jar">
             <element id="module-output" name="service-impl" />
-          </element>
-          <element id="archive" name="dao-jpa-impl-1.1-SNAPSHOT.jar">
-            <element id="module-output" name="dao-jpa-impl" />
-          </element>
-          <element id="archive" name="dao-1.1-SNAPSHOT.jar">
-            <element id="module-output" name="dao" />
-          </element>
-          <element id="archive" name="domain-1.1-SNAPSHOT.jar">
-            <element id="module-output" name="domain" />
           </element>
           <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.8.0-beta2" />
           <element id="library" level="project" name="Maven: org.apache.logging.log4j:log4j-slf4j-impl:2.11.0" />
@@ -56,6 +47,9 @@
           <element id="library" level="project" name="Maven: javax.persistence:javax.persistence-api:2.2" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.0.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.modelmapper:modelmapper:2.0.0" />
+          <element id="archive" name="dao-jpa-impl-1.1-SNAPSHOT.jar">
+            <element id="module-output" name="dao-jpa-impl" />
+          </element>
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:5.0.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.0.5.RELEASE" />
           <element id="library" level="project" name="Maven: org.hibernate:hibernate-core:5.2.16.Final" />

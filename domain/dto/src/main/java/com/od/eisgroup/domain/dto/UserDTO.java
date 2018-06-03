@@ -1,5 +1,7 @@
 package com.od.eisgroup.domain.dto;
 
+import com.od.eisgroup.domain.entity.UserStatus;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,34 +30,33 @@ public class UserDTO implements Serializable {
     @NotNull
     private RoleDTO role;
     @NotNull
-    private UserStatusDTO userStatusDTO;
+    private UserStatus status;
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserDTO userDTO = (UserDTO) o;
-        return Objects.equals(firstName, userDTO.firstName) &&
-                Objects.equals(lastName, userDTO.lastName) &&
-                Objects.equals(email, userDTO.email) &&
-                Objects.equals(role, userDTO.role) &&
-                userStatusDTO == userDTO.userStatusDTO;
+      if (this == o) {
+        return true;
+      }
+      if (!(o instanceof UserDTO)) {
+        return false;
+      }
+      UserDTO userDTO = (UserDTO) o;
+      return Objects.equals(email, userDTO.email);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(firstName, lastName, email, role, userStatusDTO);
+      return Objects.hash(email);
     }
 
     @Override
     public String toString() {
-        return "UserDTO{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                ", userStatusDTO=" + userStatusDTO +
-                '}';
+      return "UserDTO{" +
+          "firstName='" + firstName + '\'' +
+          ", lastName='" + lastName + '\'' +
+          ", email='" + email + '\'' +
+          ", status='" + status + '\'' +
+          ", role=" + role +
+          '}';
     }
 }

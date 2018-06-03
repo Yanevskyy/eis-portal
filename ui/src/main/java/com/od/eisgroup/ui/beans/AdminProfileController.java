@@ -40,8 +40,12 @@ public class AdminProfileController implements Serializable {
    * @return email login or empty String if email is empty
    */
   public String getUserLogin(UserDTO userDTO) {
-    return (!StringUtils.isEmpty(userDTO.getEmail())) ?
-        userDTO.getEmail().substring(0, userDTO.getEmail().lastIndexOf('@')) : "";
+    if (userDTO != null && !StringUtils.isEmpty(userDTO.getEmail())) {
+      return (userDTO.getEmail().contains("@")) ?
+          userDTO.getEmail().substring(0, userDTO.getEmail().lastIndexOf('@')) : userDTO.getEmail();
+    } else {
+      return "";
+    }
   }
 
   private void loadProfiles() {

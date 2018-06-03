@@ -5,7 +5,6 @@ package com.od.eisgroup.service.impl;/**
 import com.od.eisgroup.domain.dto.PrivilegeDTO;
 import com.od.eisgroup.domain.dto.RoleDTO;
 import com.od.eisgroup.domain.dto.UserDTO;
-import com.od.eisgroup.domain.dto.UserStatusDTO;
 import com.od.eisgroup.domain.entity.Privilege;
 import com.od.eisgroup.domain.entity.Role;
 import com.od.eisgroup.domain.entity.User;
@@ -42,7 +41,7 @@ public class UsersCreator {
         user.setLastName(userLastName);
         user.setFirstName(userFirstName);
         user.setEmail(userEmail);
-        user.setUserStatusDTO(UserStatusDTO.AVAILABLE);
+        user.setStatus(UserStatus.AVAILABLE);
         user.setRole(createRoleDTO());
         return user;
     }

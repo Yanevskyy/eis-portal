@@ -21,6 +21,10 @@
             <artifactId>dao-api</artifactId>
         </dependency>
         <dependency>
+          <groupId>com.od.eisgroup</groupId>
+          <artifactId>dao-jpa-impl</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.od.eisgroup</groupId>
             <artifactId>dto</artifactId>
         </dependency>
