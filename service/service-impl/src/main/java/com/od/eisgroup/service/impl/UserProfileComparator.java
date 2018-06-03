@@ -17,9 +17,4 @@ public class UserProfileComparator implements Comparator<UserDTO> {
         int result = o1.getLastName().compareTo(o2.getLastName());
         return result != 0 ? result : o1.getFirstName().compareTo(o2.getFirstName());
     }
-
-    @Override
-    public boolean equals(Object obj) {
-        return false;
-    }
 }

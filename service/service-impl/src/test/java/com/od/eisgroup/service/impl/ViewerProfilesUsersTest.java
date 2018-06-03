@@ -1,6 +1,6 @@
 package com.od.eisgroup.service.impl;
 
-import com.od.eisgroup.dao.api.GenericDao;
+import com.od.eisgroup.dao.api.UserDAO;
 import com.od.eisgroup.dao.jpa.impl.UserDaoImp;
 import com.od.eisgroup.domain.dto.UserDTO;
 import org.junit.Assert;
@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
  * @author Yanevskyy Igor i.yanevskyy@gmail.com.
  */
 public class ViewerProfilesUsersTest {
-    private GenericDao userDao = mock( UserDaoImp.class );
+    private UserDAO userDao = mock( UserDaoImp.class );
     private ViewerProfilesUsers viewerProfiles = new ViewerProfilesUsers();
     private UsersCreator usersCreator = new UsersCreator();
 

@@ -1,6 +1,6 @@
 package com.od.eisgroup.service.impl;
 
-import com.od.eisgroup.dao.api.GenericDao;
+import com.od.eisgroup.dao.api.UserDAO;
 import com.od.eisgroup.domain.dto.UserDTO;
 import com.od.eisgroup.domain.entity.User;
 import com.od.eisgroup.service.api.ViewerProfiles;
@@ -31,7 +31,7 @@ public class ViewerProfilesUsers implements ViewerProfiles {
      * DAO entity
      */
     @Autowired
-    private GenericDao userDao;
+    private UserDAO userDao;
 
     /**
      * The entity user to userDTO converter.
